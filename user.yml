@@ -1,0 +1,9 @@
+- name: create user
+  hosts: localhost
+
+  tasks: 
+  - name: create User
+    user: 
+     state: present
+     name: bala
+     shell: /bin/bash

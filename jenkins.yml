@@ -1,0 +1,24 @@
+- name: Installing Jenkins
+  hosts: localhost
+  vars:
+    keyring: /usr/share/keyrings/jenkins-keyring.asc
+  tasks:
+  - name: Install Prerequisites packages
+    package:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+    - fontconfig
+    - openjdk-17-jdk
+  - name: Creating Keyring file
+    file:
+      state: touch
+      path: "{{ keyring }}"
+  - name: Download GPG Key
+    apt_key:
+      url: https://pkg.jenkins.io/debian/jenkins.io-2023.key
+      keyring: "{{ keyring }}"
+  - name: Add Jenkins Repository
+    apt_repository:
+      repo: deb [signed-by={{ keyring }}] https://pkg.jenkins.io/debian binary/      

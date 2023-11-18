@@ -1,0 +1,9 @@
+- name: Create User
+  hosts: "{{ hosts }}"
+
+  tasks:
+  - name: Create User
+    user:
+      state: present
+      name: "{{ user }}"
+      shell: /bin/bash
